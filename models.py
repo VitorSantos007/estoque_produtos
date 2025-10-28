@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(200), nullable=False, unique=True)
     events = relationship("AuthEvent", back_populates="user")
 
+
     def as_dict(self):
         return {
             'id': self.id,
@@ -21,6 +22,34 @@ class User(db.Model, UserMixin):
             'nome': self.nome,
             'email': self.email
         }
+
+class Livro(db.Model):
+    __tablename__ = 'livros'
+
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(200), nullable=False)
+    descricao = db.Column(db.String(1000))
+    autores = db.Column(db.String(200))
+    estoque = db.Column(db.Integer)
+
+
+class Produto(db.Model):
+    __tablename__ = 'produtos'
+
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(200), nullable=False)
+    descricao = db.Column(db.String(1000))
+    estoque = db.Column(db.Integer)
+    estoque_min = db.Column(db.Integer)
+
+
+class Venda(db.Model):
+    __tablename__ = 'vendas'
+
+    id = db.Column(db.Integer, primary_key=True)
+    data_venda = db.Column(db.Date)
+    valor_venda = db.Column(db.Float)
+    pago = db.Column(db.Boolean)
 
 class AuthEvent(db.Model):
     __tablename__ = "auth_event"
