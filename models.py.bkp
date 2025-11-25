@@ -1,0 +1,95 @@
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
+from datetime import datetime
+from database import db
+from flask_login import UserMixin
+
+
+class User(db.Model, UserMixin):
+    __tablename__ = "auth_user"
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    nome = db.Column(db.String(150), nullable=False)
+    email = db.Column(db.String(200), nullable=False, unique=True)
+    events = relationship("AuthEvent", back_populates="user")
+
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'nome': self.nome,
+            'email': self.email
+        }
+    
+class Peca(db.Model):
+   
+    __tablename__ = "pecas"
+
+    id_peca= db.Column(db.Integer, primary_key=True)
+    id_fornecedor = db.Column(ForeignKey("fornecedores.id_fornecedor"))
+    nome = db.Column(db.String(150), nullable=False)
+    descricao = db.Column(db.String(500), nullable=False)
+    ref_fabricante = db.Column(db.String(150), nullable=False)
+    preco_compra = db.Column(db.Float, nullable=False)
+    preco_venda= db.Column(db.Float, nullable=False)
+    estoque_minimo = db.Column(db.Integer, nullable=False)
+    quantidade_atual = db.Column(db.Integer, nullable=False)
+
+class Fornecedor(db.Model):
+   
+    __tablename__ = "fornecedores"
+
+    id_fornecedor = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(150), nullable=False)
+    cnpj_fornecedor = db.Column(db.String(14), nullable=False)
+    telefone = db.Column(db.String(150), nullable=False)
+    email = db.Column(db.String(150), nullable=False)
+
+
+class Movimento_estoque(db.Model):
+   
+    __tablename__ = "movimentos_estoques"
+
+    id_movimento = db.Column(db.Integer, primary_key=True)
+    id_peca = db.Column(ForeignKey("pecas.id_peca"))
+    id_ordem = db.Column(ForeignKey("ordens_servicos.id_ordem"), nullable= True)
+    tipo_movimento = db.Column(db.String(150), nullable=False)
+    quantidade_estoque = db.Column(db.Integer, nullable=False)
+    data_hora = db.Column(db.Date, nullable=False)
+    
+
+
+
+class Ordem_servico(db.Model):
+   
+    __tablename__ = "ordens_servicos"
+
+    id_ordem = db.Column(db.Integer, primary_key=True)
+    data_abertura = db.Column(db.Date, nullable=False)
+    data_fechamento= db.Column(db.Date, nullable=False)
+    status = db.Column(db.String(150), nullable=False)
+   
+
+
+
+
+    
+    
+class CamposExemplo(db.Model):
+    """
+    Classe de dados modelo, adapte para seus dados
+    """
+    __tablename__ = "campos_teste"
+    id = db.Column(db.Integer, primary_key=True)
+    campo_texto = db.Column(db.String(150), nullable=False)
+    campo_texto_limitado = db.Column(db.String(10), nullable=False) # campo limitado
+    campo_email = db.Column(db.String(150), nullable=False)
+    campo_numero = db.Column(db.Integer, nullable=False)
+    campo_data = db.Column(db.Date, nullable=False)
+    campo_selecao = db.Column(db.Integer, nullable=False)
+    chk_habilitado = db.Column(db.Boolean, nullable=False)
+    chk_desabilitado = db.Column(db.Boolean, nullable=False)
+    rb_resposta = db.Column(db.String(1), nullable=False)
+    area_texto = db.Column(db.String(450), nullable=False)

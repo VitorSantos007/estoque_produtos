@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
+
+
 <div class="container">
     <h1>Cadastro Exemplo</h1>
     <form method="post" class="login-form">
@@ -13,86 +16,131 @@
             </ul>
         {% endif %}
         {% endwith %}
+
+
+      
+       
         <div class="mb-3">
-            <label for="campo_texto" class="form-label">Campo de Texto*</label>
-            <input type="text" class="form-control" id="campo_texto" 
-                name="campo_texto" placeholder="Campo de Texto" required>
+    <label for="campo_selecao" class="form-label">Selecione_Produto</label>
+    <select class="form-select" id="campo_selecao" aria-label="Default select example" name="campo_selecao">
+        <option selected>Abra esse menu</option>
+        <option value="cimento">Cimento</option>
+        <option value="tijolo">Tijolo</option>
+        <option value="areia">Areia</option>
+        <option value="brita">Brita</option>
+        <option value="madeira">Madeira</option>
+        <option value="telha">Telha</option>
+        <option value="tinta">Tinta</option>
+    </select>
+</div>
+
+<!-- Esta select box será visível apenas quando "Tinta" for selecionado -->
+        <div class="mb-3" id="cor_tinta" style="display: none;">
+            <label for="cor_tinta_select" class="form-label">Cor_Tinta</label>
+                <select class="form-select" id="cor_tinta_select" aria-label="Selecione a cor da tinta" name="cor_tinta">
+                    <option value="vermelho">Vermelho</option>
+                    <option value="azul">Azul</option>
+                    <option value="amarelo">Amarelo</option>
+                    <option value="verde">Verde</option>
+                    <option value="roxo">Roxo</option>
+                    <option value="laranja">Laranja</option>
+                </select>
+        </div>
+
+        <div class="mb-3" id="textura_tinta" style="display: none;">
+            <label for="cor_tinta_select" class="form-label">Textura_Tinta</label>
+                <select class="form-select" id="textura_tinta_select" aria-label="Selecione a textura da tinta" name="cor_tinta">
+                    <option value="acrilica">Acrilica</option>
+                    <option value="latex">Latex</option>
+                    <option value="bagua">Base d'agua</option>
+                    <option value="esmalte">Esmalte</option>
+                    <option value="epoxi">Epóxi</option>
+                </select>
+        </div>
+
+        <div class="mb-3" id="tipo_madeira" style="display: none;">
+            <label for="tipo_madeira" class="form-label">Tipo_Madeira</label>
+                <select class="form-select" id="tipo_madeira" aria-label="Selecione a cor da tinta" name="tipo_madeira">
+                    <option value="carvalho">Carvalho</option>
+                    <option value="pinheiro">Pinheiro</option>
+                    <option value="mangue">Mangue</option>
+                    <option value="eucalipto">Eucalipto</option>
+                </select>
         </div>
 
         <div class="mb-3">
-            <label for="campo_texto_limitado" class="form-label">Campo de Texto Limitado</label>
-            <input type="text" class="form-control" id="campo_texto_limitado" 
-                name="campo_texto_limitado" maxlength="10" placeholder="Até 10 Caracteres">
-        </div>
-
-        <div class="mb-3">
-            <label for="campo_email" class="form-label">Campo de E-mail</label>
-            <input type="email" class="form-control" id="campo_email" name="campo_email" placeholder="Campo de E-mail">
-        </div>
-
-        <div class="mb-3">
-            <label for="campo_numero" class="form-label">Campo de Número</label>
+            <label for="campo_numero" class="form-label">Quantidade</label>
             <input type="number" class="form-control" id="campo_numero" name="campo_numero" placeholder="Campo de Número">
         </div>
 
         <div class="mb-3">
-            <label for="campo_data" class="form-label">Campo de Data</label>
-            <input type="date" class="form-control" id="campo_data" name="campo_data" placeholder="Campo de Data">
-        </div>
-
-        <div class="mb-3">
-            <label for="campo_selecao" class="form-label">Campo de Seleção</label>
-            <select class="form-select" aria-label="Default select example" name="campo_selecao">
-                <option selected>Abra esse menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <label for="campo_selecao" class="form-label">Selecione_Medida</label>
+            <select class="form-select" aria-label="Default select example" name="campo_selecao_medida">
+                <option selected>Selecione a Unidade de Medida</option>
+                <option value="kg">KiloGrama</option>
+                <option value="mq">Metro²</option>
+                <option value="l">Litros</option>
             </select>
         </div>
 
         <div class="mb-3">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkDefault" name="chk_desabilitado">
-                <label class="form-check-label" for="checkDefault">
-                    Checkbox desabilitado
-                </label>
-                </div>
-                <div class="form-check">
-                <input class="form-check-input" role="switch" type="checkbox" value="" id="checkChecked" checked name="chk_habilitado">
-                <label class="form-check-label" for="checkChecked">
-                    Checkbox habilitado
-                </label>
-            </div>
-        </div>
+            <label for="campo_selecao" class="form-label">Tipo_Aplicação</label>
+            <select class="form-select" aria-label="Default select example" name="tipo_aplicacao">
+                <option selected>Selecione a Uso do produto</option>
+                <option value="fundacao">Fundação</option>
+                <option value="acabamento">Acabamento</option>
+                <option value="estrutura">Estruturação</option>
+            </select>
+
         <div class="mb-3">
-            <p>Use quado usuário tem uma opção (questionários online, exemplo)</p>
-            <div class="form-check">
-                <input class="form-check-input" value="a" type="radio" name="rb_resposta" id="rb_respostaa">
-                <label class="form-check-label" for="rb_respostaa">
-                    a) Resposta correta A
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" value="b" type="radio" name="rb_resposta" id="rb_respostab" checked>
-                <label class="form-check-label" for="rb_respostab">
-                    a) Resposta correta B
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" value="c" type="radio" name="rb_resposta" id="rb_respostac">
-                <label class="form-check-label" for="rb_respostac">
-                    c) Resposta correta C
-                </label>
-            </div>
+            <label for="Campo_validade" class="form-label">Data_Validade</label>
+            <input type="date" class="form-control" id="Campo_validade" name="Campo_validade" placeholder="Campo_validade">
         </div>
 
         <div class="mb-3">
-            <label for="area_texto" class="form-label">Área de Texto</label>
-            <textarea class="form-control" id="area_texto" name="area_texto" 
-                placeholder="Digite textos de mais de uma linha"></textarea>
+            <label for="Campo_data_entrada" class="form-label">Data_Entrada</label>
+            <input type="date" class="form-control" id="Campo_data_entrada" name="Campo_data_entrada" placeholder="Campo_data_entrada">
         </div>
+
+       
+    
         
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 </div>
+
+ <script>
+document.getElementById("campo_selecao").addEventListener("change", function() {
+    const produtoSelecionado = this.value;
+    const corTintaDiv = document.getElementById("cor_tinta");
+
+    if (produtoSelecionado === "tinta") {
+        corTintaDiv.style.display = "block";
+    } else {
+        corTintaDiv.style.display = "none";
+    }
+});
+
+document.getElementById("campo_selecao").addEventListener("change", function() {
+    const produtoSelecionado = this.value;
+    const corTintaDiv = document.getElementById("textura_tinta");
+
+    if (produtoSelecionado === "tinta") {
+        corTintaDiv.style.display = "block";
+    } else {
+        corTintaDiv.style.display = "none";
+    }
+});
+
+document.getElementById("campo_selecao").addEventListener("change", function() {
+    const produtoSelecionado = this.value;
+    const corTintaDiv = document.getElementById("tipo_madeira");
+
+    if (produtoSelecionado === "madeira") {
+        corTintaDiv.style.display = "block";
+    } else {
+        corTintaDiv.style.display = "none";
+    }
+});
+</script>
 {% endblock %}

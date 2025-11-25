@@ -24,7 +24,8 @@ def login():
 
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('ctrl_home.index'))
+            return render_template('cadastro_exemplo.html')
+            
         else:
             flash('Usuário ou senha inválidos')
 
@@ -71,3 +72,5 @@ def change_password():
                 flash('Usuário não encontrado')
 
     return render_template('auth/change_password.html')
+
+

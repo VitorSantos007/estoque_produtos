@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Cadastro Exemplo</h1>
+    <form method="post" class="login-form">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="alert alert-danger">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        <div class="mb-3">
+            <label for="campo_texto" class="form-label">Campo de Texto</label>
+            <input type="text" class="form-control" id="campo_texto" 
+                name="campo_texto" placeholder="Campo de Texto" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="campo_texto_limitado" class="form-label">Campo de Texto Limitado</label>
+            <input type="text" class="form-control" id="campo_texto_limitado" 
+                name="campo_texto_limitado" maxlength="10" placeholder="Até 10 Caracteres">
+        </div>
+
+        <div class="mb-3">
+            <label for="campo_email" class="form-label">Campo de E-mail</label>
+            <input type="email" class="form-control" id="campo_email" name="campo_email" placeholder="Campo de E-mail">
+        </div>
+
+        <div class="mb-3">
+            <label for="campo_numero" class="form-label">Campo de Número</label>
+            <input type="number" class="form-control" id="campo_numero" name="campo_numero" placeholder="Campo de Número">
+        </div>
+
+        <div class="mb-3">
+            <label for="campo_data" class="form-label">Campo de Data</label>
+            <input type="date" class="form-control" id="campo_data" name="campo_data" placeholder="Campo de Data">
+        </div>
+
+        <div class="mb-3">
+            <label for="campo_selecao" class="form-label">Campo de Seleção</label>
+            <select class="form-select" aria-label="Default select example" name="campo_selecao">
+                <option selected>Abra esse menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkDefault" name="chk_desabilitado">
+                <label class="form-check-label" for="checkDefault">
+                    Checkbox desabilitado
+                </label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" role="switch" type="checkbox" value="" id="checkChecked" checked name="chk_habilitado">
+                <label class="form-check-label" for="checkChecked">
+                    Checkbox habilitado
+                </label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <p>Use quado usuário tem uma opção (questionários online, exemplo)</p>
+            <div class="form-check">
+                <input class="form-check-input" value="a" type="radio" name="rb_resposta" id="rb_respostaa">
+                <label class="form-check-label" for="rb_respostaa">
+                    a) Resposta correta A
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" value="b" type="radio" name="rb_resposta" id="rb_respostab" checked>
+                <label class="form-check-label" for="rb_respostab">
+                    a) Resposta correta B
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" value="c" type="radio" name="rb_resposta" id="rb_respostac">
+                <label class="form-check-label" for="rb_respostac">
+                    c) Resposta correta C
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="area_texto" class="form-label">Área de Texto</label>
+            <textarea class="form-control" id="area_texto" name="area_texto" 
+                placeholder="Digite textos de mais de uma linha"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div>
+{% endblock %}

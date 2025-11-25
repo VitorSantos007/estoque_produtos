@@ -11,18 +11,19 @@
 </style>
 <table>
     <tr>
-        <th>Campo de Texto</th> 
-        <th>Campo Texto Limitado</th>
-        <th>Controles</th>
+        <th>Produto</th> 
+        <th>Quantidade</th>
+        <th>Data</th>
     </tr>
 
     {% for l in listagem %}
     <tr>
         <td>{{l.campo_texto}}</td> 
-        <td>{{l.campo_texto_limitado}}</td>
+        <td>{{l.campo_numero}}</td>
+        <td>{{l.campo_data}}</td>
         <td>
-            <a href="">Excluir</a> | 
-            <a href="">Delete</a>
+            <a href="auth/add.html">Adicionar</a>  |
+            <a href="auth/retirar.html">Retirar</a>
         </td>
     </tr>
     {% endfor %}

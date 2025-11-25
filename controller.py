@@ -9,6 +9,7 @@ from flask_login import login_required
 from database import db
 from models import CamposExemplo
 
+
 """
     ControllerExemplo: Nome da blueprint que será usada em urlfor
         Ex: url_for('ControllerExemplo.nome_funcao')
@@ -26,6 +27,7 @@ bp = Blueprint(__name__, "ControllerExemplo", url_prefix="/exemplos")
 # https://127.0.0.1:5000/produtos/listar -> se url_prefix = 'produtos'
 # https://127.0.0.1:5000/listar -> se url_prefix = None
 @bp.route("/listar")
+@login_required
 def listar():
     """
     Lista os dados da tabela CadastroExemplo
@@ -73,3 +75,10 @@ def cadastro_exemplo():
 @bp.route("/exclusao")
 def exclui_produto():
     return ""
+
+
+@bp.route("/vendas_joao")
+def vendas_joao():
+    listagem = VendaJoao.query.filter_by().all()
+
+    return f"{listagem}"

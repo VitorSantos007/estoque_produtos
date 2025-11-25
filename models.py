@@ -23,33 +23,33 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
 
-class Livro(db.Model):
-    __tablename__ = 'livros'
+class ProdutoCadastro(db.Model):
+    __tablename__ = "produto_cadastro"
 
     id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(200), nullable=False)
-    descricao = db.Column(db.String(1000))
-    autores = db.Column(db.String(200))
-    estoque = db.Column(db.Integer)
 
+    # Select principal: produto
+    campo_selecao = db.Column(db.String(50), nullable=False)
 
-class Produto(db.Model):
-    __tablename__ = 'produtos'
+    # Apenas se o produto for tinta
+    cor_tinta = db.Column(db.String(50), nullable=True)
+    textura_tinta = db.Column(db.String(50), nullable=True)
 
-    id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(200), nullable=False)
-    descricao = db.Column(db.String(1000))
-    estoque = db.Column(db.Integer)
-    estoque_min = db.Column(db.Integer)
+    # Apenas se o produto for madeira
+    tipo_madeira = db.Column(db.String(50), nullable=True)
 
+    # Quantidade
+    campo_numero = db.Column(db.Integer, nullable=False)
 
-class Venda(db.Model):
-    __tablename__ = 'vendas'
+    # Medida (kg, m², litros)
+    campo_selecao_medida = db.Column(db.String(20), nullable=False)
 
-    id = db.Column(db.Integer, primary_key=True)
-    data_venda = db.Column(db.Date)
-    valor_venda = db.Column(db.Float)
-    pago = db.Column(db.Boolean)
+    # Tipo de aplicação
+    tipo_aplicacao = db.Column(db.String(50), nullable=False)
+
+    # Datas
+    Campo_validade = db.Column(db.Date, nullable=False)
+    Campo_data_entrada = db.Column(db.Date, nullable=False)
 
 class AuthEvent(db.Model):
     __tablename__ = "auth_event"
@@ -78,5 +78,8 @@ class CamposExemplo(db.Model):
     chk_desabilitado = db.Column(db.Boolean, nullable=False)
     rb_resposta = db.Column(db.String(1), nullable=False)
     area_texto = db.Column(db.String(450), nullable=False)
+
+
+
 
 # Other models here...
