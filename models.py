@@ -29,7 +29,7 @@ class ProdutoCadastro(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Select principal: produto
-    campo_selecao = db.Column(db.String(50), nullable=False)
+    produto_selecao = db.Column(db.String(50), nullable=False)
 
     # Apenas se o produto for tinta
     cor_tinta = db.Column(db.String(50), nullable=True)
@@ -39,7 +39,7 @@ class ProdutoCadastro(db.Model):
     tipo_madeira = db.Column(db.String(50), nullable=True)
 
     # Quantidade
-    campo_numero = db.Column(db.Integer, nullable=False)
+    quantidade = db.Column(db.Integer, nullable=False)
 
     # Medida (kg, m², litros)
     campo_selecao_medida = db.Column(db.String(20), nullable=False)
@@ -59,26 +59,6 @@ class AuthEvent(db.Model):
     event_timestamp = db.Column(db.String(150), nullable=False)
     user_id = db.Column(ForeignKey("auth_user.id"))
     user = relationship("User", back_populates="events")
-
-
-# Campos de evento
-class CamposExemplo(db.Model):
-    """
-    Classe de dados modelo, adapte para seus dados
-    """
-    __tablename__ = "campos_teste"
-    id = db.Column(db.Integer, primary_key=True)
-    campo_texto = db.Column(db.String(150), nullable=False)
-    campo_texto_limitado = db.Column(db.String(10), nullable=False) # campo limitado
-    campo_email = db.Column(db.String(150), nullable=False)
-    campo_numero = db.Column(db.Integer, nullable=False)
-    campo_data = db.Column(db.Date, nullable=False)
-    campo_selecao = db.Column(db.Integer, nullable=False)
-    chk_habilitado = db.Column(db.Boolean, nullable=False)
-    chk_desabilitado = db.Column(db.Boolean, nullable=False)
-    rb_resposta = db.Column(db.String(1), nullable=False)
-    area_texto = db.Column(db.String(450), nullable=False)
-
 
 
 

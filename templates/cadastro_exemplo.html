@@ -21,8 +21,8 @@
       
        
         <div class="mb-3">
-    <label for="campo_selecao" class="form-label">Selecione_Produto</label>
-    <select class="form-select" id="campo_selecao" aria-label="Default select example" name="campo_selecao">
+    <label for="produto_selecao" class="form-label">Selecione_Produto</label>
+    <select class="form-select" id="campo_selecao" aria-label="Default select example" name="produto_selecao">
         <option selected>Abra esse menu</option>
         <option value="cimento">Cimento</option>
         <option value="tijolo">Tijolo</option>
@@ -36,7 +36,7 @@
 
 <!-- Esta select box será visível apenas quando "Tinta" for selecionado -->
         <div class="mb-3" id="cor_tinta" style="display: none;">
-            <label for="cor_tinta_select" class="form-label">Cor_Tinta</label>
+            <label for="cor_tinta" class="form-label">Cor_Tinta</label>
                 <select class="form-select" id="cor_tinta_select" aria-label="Selecione a cor da tinta" name="cor_tinta">
                     <option value="vermelho">Vermelho</option>
                     <option value="azul">Azul</option>
@@ -48,8 +48,8 @@
         </div>
 
         <div class="mb-3" id="textura_tinta" style="display: none;">
-            <label for="cor_tinta_select" class="form-label">Textura_Tinta</label>
-                <select class="form-select" id="textura_tinta_select" aria-label="Selecione a textura da tinta" name="cor_tinta">
+            <label for="textura_tinta" class="form-label">Textura_Tinta</label>
+                <select class="form-select" id="textura_tinta_select" aria-label="Selecione a textura da tinta" name="textura_tinta">
                     <option value="acrilica">Acrilica</option>
                     <option value="latex">Latex</option>
                     <option value="bagua">Base d'agua</option>
@@ -69,22 +69,23 @@
         </div>
 
         <div class="mb-3">
-            <label for="campo_numero" class="form-label">Quantidade</label>
-            <input type="number" class="form-control" id="campo_numero" name="campo_numero" placeholder="Campo de Número">
+            <label for="quantidade" class="form-label">Quantidade</label>
+            <input type="number" class="form-control" id="campo_numero" name="campo_numero" placeholder="quantidade">
         </div>
 
         <div class="mb-3">
-            <label for="campo_selecao" class="form-label">Selecione_Medida</label>
+            <label for="campo_selecao_medida" class="form-label">Selecione_Medida</label>
             <select class="form-select" aria-label="Default select example" name="campo_selecao_medida">
                 <option selected>Selecione a Unidade de Medida</option>
                 <option value="kg">KiloGrama</option>
                 <option value="mq">Metro²</option>
                 <option value="l">Litros</option>
+                <option value="pcs">Peças (Unitário)</option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="campo_selecao" class="form-label">Tipo_Aplicação</label>
+            <label for="tipo_aplicacao" class="form-label">Tipo_Aplicação</label>
             <select class="form-select" aria-label="Default select example" name="tipo_aplicacao">
                 <option selected>Selecione a Uso do produto</option>
                 <option value="fundacao">Fundação</option>

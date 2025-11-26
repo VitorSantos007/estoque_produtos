@@ -19,7 +19,7 @@ def create_app(): # cria uma função para definir o aplicativo
     app = Flask(__name__) # instancia o Flask
     app.secret_key = "abax"
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dados.db"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///saep_db.db"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     login_manager = LoginManager()  

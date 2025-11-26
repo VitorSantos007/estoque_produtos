@@ -7,7 +7,9 @@ from flask_login import login_required
 
 
 from database import db
-from models import CamposExemplo
+
+from models import ProdutoCadastro
+
 
 
 """
@@ -34,7 +36,7 @@ def listar():
     """
     
     # Criar uma query (veja os imports)
-    listagem = CamposExemplo.query.filter_by().all()
+    listagem = ProdutoCadastro.query.filter_by().all()
 
     return render_template("listagem_exemplo.html", listagem=listagem)
 
@@ -43,24 +45,24 @@ def listar():
 def cadastro_exemplo():
     if request.method == 'POST':
         # Capturar dados do formulário para a classe instanciada
-        from models import CamposExemplo
         from datetime import datetime
         
-        # precisa fazer cast com a data
-        campo_data = datetime.strptime(request.form.get("campo_data"), '%Y-%m-%d').date()
+     
 
-        camposExemplo = CamposExemplo(
-            campo_texto = request.form.get("campo_texto")
-            ,campo_texto_limitado = request.form.get("campo_texto_limitado") # até 10 caracteres
-            ,campo_email = request.form.get("campo_email")
-            ,campo_numero = request.form.get("campo_numero")
-            ,campo_selecao = request.form.get("campo_selecao")
-            ,campo_data = campo_data
+        camposExemplo = ProdutoCadastro(
+            quantidade = request.form.get("quantidade")
+            ,produto_selecao = request.form.get("produto_selecao")
+            ,cor_tinta= request.form.get("cor_tinta")
+            ,textura_tinta = request.form.get("textura_tinta")
+            ,Campo_data_entrada = request.form.get("Campo_data_entrada")
+            ,tipo_madeira= request.form.get("tipo_madeira")
+            ,campo_selecao_medida = request.form.get("campo_selecao_medida")
+            ,tipo_aplicacao = request.form.get("tipo_aplicacao")
+            ,Campo_validade = request.form.get("Campo_validade")
+   
+
             # Nos campos de checagem é preciso fazer uma validação para assumir verdadeiro ou falso
-            ,chk_habilitado = "chk_habilitado" in request.form
-            ,chk_desabilitado = "chk_desabilitado" in request.form # se estiver no dicináiro é True
-            ,rb_resposta = request.form.get("rb_resposta") # Semelhante ao select box
-            ,area_texto = request.form.get("area_texto")
+         
         ) # fim instancia
 
         # iniciar uma sessão com banco para salvar os dados
@@ -77,8 +79,3 @@ def exclui_produto():
     return ""
 
 
-@bp.route("/vendas_joao")
-def vendas_joao():
-    listagem = VendaJoao.query.filter_by().all()
-
-    return f"{listagem}"
