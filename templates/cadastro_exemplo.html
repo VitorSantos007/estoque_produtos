@@ -1,147 +1,113 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} 
 
 {% block content %}
 
-
-
 <div class="container">
     <h1>Cadastro Exemplo</h1>
+
     <form method="post" class="login-form">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="alert alert-danger">
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% endwith %}
-
-
-      
-       
-        <div class="mb-3">
-    <label for="produto_selecao" class="form-label">Selecione_Produto</label>
-    <select class="form-select" id="campo_selecao" aria-label="Default select example" name="produto_selecao">
-        <option selected>Abra esse menu</option>
-        <option value="cimento">Cimento</option>
-        <option value="tijolo">Tijolo</option>
-        <option value="areia">Areia</option>
-        <option value="brita">Brita</option>
-        <option value="madeira">Madeira</option>
-        <option value="telha">Telha</option>
-        <option value="tinta">Tinta</option>
-    </select>
-</div>
-
-<!-- Esta select box será visível apenas quando "Tinta" for selecionado -->
-        <div class="mb-3" id="cor_tinta" style="display: none;">
-            <label for="cor_tinta" class="form-label">Cor_Tinta</label>
-                <select class="form-select" id="cor_tinta_select" aria-label="Selecione a cor da tinta" name="cor_tinta">
-                    <option value="vermelho">Vermelho</option>
-                    <option value="azul">Azul</option>
-                    <option value="amarelo">Amarelo</option>
-                    <option value="verde">Verde</option>
-                    <option value="roxo">Roxo</option>
-                    <option value="laranja">Laranja</option>
-                </select>
-        </div>
-
-        <div class="mb-3" id="textura_tinta" style="display: none;">
-            <label for="textura_tinta" class="form-label">Textura_Tinta</label>
-                <select class="form-select" id="textura_tinta_select" aria-label="Selecione a textura da tinta" name="textura_tinta">
-                    <option value="acrilica">Acrilica</option>
-                    <option value="latex">Latex</option>
-                    <option value="bagua">Base d'agua</option>
-                    <option value="esmalte">Esmalte</option>
-                    <option value="epoxi">Epóxi</option>
-                </select>
-        </div>
-
-        <div class="mb-3" id="tipo_madeira" style="display: none;">
-            <label for="tipo_madeira" class="form-label">Tipo_Madeira</label>
-                <select class="form-select" id="tipo_madeira" aria-label="Selecione a cor da tinta" name="tipo_madeira">
-                    <option value="carvalho">Carvalho</option>
-                    <option value="pinheiro">Pinheiro</option>
-                    <option value="mangue">Mangue</option>
-                    <option value="eucalipto">Eucalipto</option>
-                </select>
-        </div>
 
         <div class="mb-3">
-            <label for="quantidade" class="form-label">Quantidade</label>
-            <input type="number" class="form-control" id="campo_numero" name="campo_numero" placeholder="quantidade">
+            <label for="produto_selecao" class="form-label">Selecione Produto</label>
+            <select class="form-select" id="produto_selecao" name="produto_selecao">
+                <option selected disabled>Escolha...</option>
+                <option value="cimento">Cimento</option>
+                <option value="tijolo">Tijolo</option>
+                <option value="areia">Areia</option>
+                <option value="brita">Brita</option>
+                <option value="madeira">Madeira</option>
+                <option value="telha">Telha</option>
+                <option value="tinta">Tinta</option>
+            </select>
         </div>
 
-        <div class="mb-3">
-            <label for="campo_selecao_medida" class="form-label">Selecione_Medida</label>
-            <select class="form-select" aria-label="Default select example" name="campo_selecao_medida">
-                <option selected>Selecione a Unidade de Medida</option>
-                <option value="kg">KiloGrama</option>
-                <option value="mq">Metro²</option>
-                <option value="l">Litros</option>
-                <option value="pcs">Peças (Unitário)</option>
+        <!-- CAMPOS PARA TINTA -->
+        <div class="mb-3" id="cor_tinta_div" style="display:none;">
+            <label class="form-label">Cor da Tinta</label>
+            <select class="form-select" name="cor_tinta">
+                <option value="vermelho">Vermelho</option>
+                <option value="azul">Azul</option>
+                <option value="amarelo">Amarelo</option>
+                <option value="verde">Verde</option>
+            </select>
+        </div>
+
+        <div class="mb-3" id="textura_tinta_div" style="display:none;">
+            <label class="form-label">Textura da Tinta</label>
+            <select class="form-select" name="textura_tinta">
+                <option value="acrilica">Acrílica</option>
+                <option value="latex">Látex</option>
+                <option value="agua">Base d'Água</option>
+                <option value="esmalte">Esmalte</option>
+            </select>
+        </div>
+
+        <!-- CAMPO PARA MADEIRA -->
+        <div class="mb-3" id="tipo_madeira_div" style="display:none;">
+            <label class="form-label">Tipo de Madeira</label>
+            <select class="form-select" name="tipo_madeira">
+                <option value="carvalho">Carvalho</option>
+                <option value="pinheiro">Pinheiro</option>
+                <option value="eucalipto">Eucalipto</option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="tipo_aplicacao" class="form-label">Tipo_Aplicação</label>
-            <select class="form-select" aria-label="Default select example" name="tipo_aplicacao">
-                <option selected>Selecione a Uso do produto</option>
+            <label class="form-label">Quantidade</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Unidade de Medida</label>
+            <select class="form-select" name="campo_selecao_medida">
+                <option selected disabled>Selecione...</option>
+                <option value="kg">Kg</option>
+                <option value="mq">m²</option>
+                <option value="l">Litro</option>
+                <option value="pcs">Peças</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo de Aplicação</label>
+            <select class="form-select" name="tipo_aplicacao">
+                <option selected disabled>Escolha...</option>
                 <option value="fundacao">Fundação</option>
                 <option value="acabamento">Acabamento</option>
-                <option value="estrutura">Estruturação</option>
+                <option value="estrutura">Estrutura</option>
             </select>
-
-        <div class="mb-3">
-            <label for="Campo_validade" class="form-label">Data_Validade</label>
-            <input type="date" class="form-control" id="Campo_validade" name="Campo_validade" placeholder="Campo_validade">
         </div>
 
         <div class="mb-3">
-            <label for="Campo_data_entrada" class="form-label">Data_Entrada</label>
-            <input type="date" class="form-control" id="Campo_data_entrada" name="Campo_data_entrada" placeholder="Campo_data_entrada">
+            <label class="form-label">Data Validade</label>
+            <input type="date" class="form-control" name="Campo_validade">
         </div>
 
-       
-    
-        
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <div class="mb-3">
+            <label class="form-label">Data Entrada</label>
+            <input type="date" class="form-control" name="Campo_data_entrada">
+        </div>
+
+        <button class="btn btn-primary">Salvar</button>
     </form>
 </div>
 
- <script>
-document.getElementById("campo_selecao").addEventListener("change", function() {
-    const produtoSelecionado = this.value;
-    const corTintaDiv = document.getElementById("cor_tinta");
+<script>
+document.getElementById("produto_selecao").addEventListener("change", function() {
+    const valor = this.value;
 
-    if (produtoSelecionado === "tinta") {
-        corTintaDiv.style.display = "block";
-    } else {
-        corTintaDiv.style.display = "none";
-    }
-});
-
-document.getElementById("campo_selecao").addEventListener("change", function() {
-    const produtoSelecionado = this.value;
-    const corTintaDiv = document.getElementById("textura_tinta");
-
-    if (produtoSelecionado === "tinta") {
-        corTintaDiv.style.display = "block";
-    } else {
-        corTintaDiv.style.display = "none";
-    }
-});
-
-document.getElementById("campo_selecao").addEventListener("change", function() {
-    const produtoSelecionado = this.value;
-    const corTintaDiv = document.getElementById("tipo_madeira");
-
-    if (produtoSelecionado === "madeira") {
-        corTintaDiv.style.display = "block";
-    } else {
-        corTintaDiv.style.display = "none";
-    }
+    document.getElementById("cor_tinta_div").style.display = valor === "tinta" ? "block" : "none";
+    document.getElementById("textura_tinta_div").style.display = valor === "tinta" ? "block" : "none";
+    document.getElementById("tipo_madeira_div").style.display = valor === "madeira" ? "block" : "none";
 });
 </script>
+
+{% with msgs = get_flashed_messages() %}
+  {% if msgs %}
+    <script>
+        alert("{{ msgs[0] }}");
+    </script>
+  {% endif %}
+{% endwith %}
+
 {% endblock %}

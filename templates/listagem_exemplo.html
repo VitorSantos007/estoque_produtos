@@ -1,32 +1,76 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
 <style>
-    table, th, td {
+    .tabela-container {
+        margin-top: 30px;
+        margin-left: 15px;
+        width: 90%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 18px;
+    }
+
+    table th {
+        background: #f1f1f1;
+        font-weight: bold;
+        padding: 8px;
         border: 1px solid black;
     }
+
     table td {
-        text-align: center;
+        padding: 8px;
+        border: 1px solid black;
+        text-align: left;
+    }
+
+    .acoes a {
+        font-size: 17px;
+        color: blue;
+        text-decoration: underline;
+        margin-right: 10px;
+    }
+
+    .acoes a:hover {
+        color: darkblue;
     }
 </style>
-<table>
-    <tr>
-        <th>Produto</th> 
-        <th>Quantidade</th>
-        <th>Data</th>
-    </tr>
 
-    {% for l in listagem %}
-    <tr>
-        <td>{{l.campo_texto}}</td> 
-        <td>{{l.campo_numero}}</td>
-        <td>{{l.campo_data}}</td>
-        <td>
-            <a href="auth/add.html">Adicionar</a>  |
-            <a href="auth/retirar.html">Retirar</a>
-        </td>
-    </tr>
-    {% endfor %}
+<div class="tabela-container">
+    <table>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Data Entrada</th>
+            <th>Ações</th>
+        </tr>
 
-</table>
+        {% for l in listagem %}
+        <tr>
+            <td>{{ l.produto_selecao }}</td>
+            <td>{{ l.quantidade }}</td>
+            <td>{{ l.Campo_data_entrada }}</td>
+
+            <td class="acoes">
+                <a href="{{ url_for('ControllerExemplo.editar', id=l.id) }}"
+                style="color:rgb(221, 218, 33); margin-right: 10px;">
+                Editar
+                </a>
+
+                <a href="{{ url_for('ControllerExemplo.excluir', id=l.id) }}"
+                   style="color:red;"
+                   onclick="return confirm('Deseja excluir este item?')">
+                    Excluir
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
 {% endblock %}

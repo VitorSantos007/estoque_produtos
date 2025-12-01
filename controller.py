@@ -1,81 +1,120 @@
-"""
-Esse arquivo é um exemplo de controller
-"""
-
 from flask import Blueprint, request, redirect, url_for, render_template, flash
 from flask_login import login_required
-
+from datetime import datetime
 
 from database import db
-
 from models import ProdutoCadastro
 
+bp = Blueprint("ControllerExemplo", __name__, url_prefix="/exemplos")
 
 
-"""
-    ControllerExemplo: Nome da blueprint que será usada em urlfor
-        Ex: url_for('ControllerExemplo.nome_funcao')
-            url_for('ProdutosController.cadastrar')
-
-    url_prefix: Prefixo de URL usado nas urls como em, 
-        deixe em branco caso queira usar a raiz do site
-        https://127.0.0.1:5000/url_prefix/cadastrar
-        https://127.0.0.1:5000/url_prefix/listar
-
-"""
-bp = Blueprint(__name__, "ControllerExemplo", url_prefix="/exemplos")
-
-# https://127.0.0.1:5000/url_prefix/listar
-# https://127.0.0.1:5000/produtos/listar -> se url_prefix = 'produtos'
-# https://127.0.0.1:5000/listar -> se url_prefix = None
 @bp.route("/listar")
 @login_required
 def listar():
-    """
-    Lista os dados da tabela CadastroExemplo
-    """
-    
-    # Criar uma query (veja os imports)
-    listagem = ProdutoCadastro.query.filter_by().all()
-
+    listagem = ProdutoCadastro.query.order_by(ProdutoCadastro.produto_selecao).all()
     return render_template("listagem_exemplo.html", listagem=listagem)
 
-@bp.route("/cadastro_exemplo", methods=('POST', 'GET'))
-@login_required # trava de autenticação
+
+@bp.route("/cadastro_exemplo", methods=['POST', 'GET'])
+@login_required
 def cadastro_exemplo():
     if request.method == 'POST':
-        # Capturar dados do formulário para a classe instanciada
-        from datetime import datetime
-        
-     
 
-        camposExemplo = ProdutoCadastro(
-            quantidade = request.form.get("quantidade")
-            ,produto_selecao = request.form.get("produto_selecao")
-            ,cor_tinta= request.form.get("cor_tinta")
-            ,textura_tinta = request.form.get("textura_tinta")
-            ,Campo_data_entrada = request.form.get("Campo_data_entrada")
-            ,tipo_madeira= request.form.get("tipo_madeira")
-            ,campo_selecao_medida = request.form.get("campo_selecao_medida")
-            ,tipo_aplicacao = request.form.get("tipo_aplicacao")
-            ,Campo_validade = request.form.get("Campo_validade")
-   
+        # Recebe dados do formulário
+        quantidade_str = request.form.get("quantidade")
+        produto_selecao = request.form.get("produto_selecao")
+        cor_tinta = request.form.get("cor_tinta")
+        textura_tinta = request.form.get("textura_tinta")
+        tipo_madeira = request.form.get("tipo_madeira")
+        campo_selecao_medida = request.form.get("campo_selecao_medida")
+        tipo_aplicacao = request.form.get("tipo_aplicacao")
+        data_entrada_str = request.form.get("Campo_data_entrada")
+        validade_str = request.form.get("Campo_validade")
 
-            # Nos campos de checagem é preciso fazer uma validação para assumir verdadeiro ou falso
-         
-        ) # fim instancia
+        # Converte quantidade para inteiro
+        try:
+            quantidade = int(quantidade_str)
+        except:
+            flash("Quantidade inválida!")
+            return render_template("cadastro_exemplo.html")
 
-        # iniciar uma sessão com banco para salvar os dados
-        # e fazer o commit
-        db.session.add(camposExemplo)
+        # Converte datas para Python date
+        try:
+            Campo_data_entrada = datetime.strptime(data_entrada_str, "%Y-%m-%d").date()
+            Campo_validade = datetime.strptime(validade_str, "%Y-%m-%d").date()
+        except:
+            flash("Erro na conversão das datas! Use o formato correto.")
+            return render_template("cadastro_exemplo.html")
+
+        # Criação do objeto
+        novo_registro = ProdutoCadastro(
+            quantidade=quantidade,
+            produto_selecao=produto_selecao,
+            cor_tinta=cor_tinta,
+            textura_tinta=textura_tinta,
+            tipo_madeira=tipo_madeira,
+            campo_selecao_medida=campo_selecao_medida,
+            tipo_aplicacao=tipo_aplicacao,
+            Campo_validade=Campo_validade,
+            Campo_data_entrada=Campo_data_entrada
+        )
+
+        db.session.add(novo_registro)
         db.session.commit()
 
-        flash("Dados salvos com sucesso!!")
-        
+        flash("Dados salvos com sucesso!")
+        return redirect(url_for("ControllerExemplo.cadastro_exemplo"))
+
     return render_template('cadastro_exemplo.html')
 
-@bp.route("/exclusao")
-def exclui_produto():
-    return ""
+
+
+    # GET: mostra formulário preenchido
+    return render_template("editar_exemplo.html", produto=produto)
+
+@bp.route("/selecionar", methods=["GET"])
+@login_required
+def selecionar():
+    produtos = ProdutoCadastro.query.order_by(ProdutoCadastro.produto_selecao).all()
+    return render_template("selecionar_produto.html", produtos=produtos)
+
+@bp.route("/editar", methods=["GET", "POST"])
+@login_required
+def editar():
+    produto_id = request.args.get("id")
+    if not produto_id:
+        flash("Produto não selecionado!")
+        return redirect(url_for("ControllerExemplo.selecionar"))
+
+    produto = ProdutoCadastro.query.get_or_404(int(produto_id))
+
+    if request.method == "POST":
+        try:
+            nova_quantidade = int(request.form.get("quantidade"))
+            if nova_quantidade < 0:
+                flash("A quantidade não pode ser negativa!")
+                return render_template("editar_exemplo.html", produto=produto)
+            produto.quantidade = nova_quantidade
+            db.session.commit()
+            flash("Quantidade atualizada com sucesso!")
+            return redirect(url_for("ControllerExemplo.listar"))
+        except ValueError:
+            flash("Quantidade inválida!")
+            return render_template("editar_exemplo.html", produto=produto)
+
+    return render_template("editar_exemplo.html", produto=produto)
+
+
+
+@bp.route("/excluir/<int:id>")
+@login_required
+def excluir(id):
+    item = ProdutoCadastro.query.get_or_404(id)
+
+    db.session.delete(item)
+    db.session.commit()
+
+    flash("Item excluído com sucesso!")
+    return redirect(url_for("ControllerExemplo.listar"))
 
 

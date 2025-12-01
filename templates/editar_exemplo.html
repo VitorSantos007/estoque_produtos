@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>Editar Estoque - Produto: {{ produto.produto_selecao }}</h2>
+
+<form method="post">
+
+    <!-- Produto apenas exibido, não editável -->
+    Produto: <strong>{{ produto.produto_selecao }}</strong><br><br>
+
+    Quantidade:
+    <input type="number" name="quantidade" value="{{ produto.quantidade }}" required min="0"><br><br>
+
+    <button type="submit">Salvar Alterações</button>
+</form>
+
+<a href="{{ url_for('ControllerExemplo.listar') }}">Voltar à listagem</a>
+<a href="{{ url_for('ControllerExemplo.selecionar') }}">Selecionar outro produto</a>
+{% endblock %}
+
